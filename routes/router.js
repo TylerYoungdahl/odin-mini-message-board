@@ -1,8 +1,8 @@
 import express from "express";
 import { getMessages } from "../controllers/indexController.js";
 
-const indexRouter = express.Router();
+const router = express.Router();
 
-indexRouter.get("/", getMessages);
+router.get("/", getMessages);
 
-export default indexRouter;
+export default router;

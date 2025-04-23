@@ -1,7 +1,7 @@
 import express from "express";
 import path from "path";
 import { fileURLToPath } from "url";
-import indexRouter from "./routes/indexRouter.js";
+import router from "./routes/router.js";
 
 // Config
 const PORT = 8000;
@@ -19,7 +19,7 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
 // Routes
-app.use("/", indexRouter);
+app.use("/", router);
 
 // Start Server
 app.listen(PORT, console.log(`Server is running on port ${PORT}`));
