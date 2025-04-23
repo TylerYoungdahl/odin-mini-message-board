@@ -13,6 +13,7 @@ const app = express();
 const assetsPath = path.join(__dirname, "public");
 
 // Middleware
+app.use(express.urlencoded({ extended: true }));
 
 // View Engine Setup
 app.set("views", path.join(__dirname, "views"));
