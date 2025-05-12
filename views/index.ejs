@@ -7,9 +7,18 @@
   </head>
   <body>
     <ul>
-      <% messages.forEach((message) => { %> <%- include("message", { message })
-      %> <% }) %>
+      <% if (messages && messages.length) { %> <%
+      messages.forEach(function(message) { %>
+      <li>
+        <h3><%= message.username %></h3>
+        <p><%= message.text %></p>
+        <p><%= message.date_added %></p>
+      </li>
+      <% }); %> <% } else { %>
+      <li>No messages found</li>
+      <% } %>
     </ul>
+
     <a href="/new">Add Message</a>
   </body>
 </html>

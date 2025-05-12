@@ -1,18 +1,15 @@
-const messages = [
-  {
-    text: "Hi there!",
-    user: "Amando",
-    added: new Date(),
-  },
-  {
-    text: "Hello World!",
-    user: "Charles",
-    added: new Date(),
-  },
-];
+import * as db from "../db/queries.js";
+import { format } from "date-fns";
 
-export const getMessages = (req, res) => {
-  res.render("index", { messages: messages });
+export const getMessages = async (req, res) => {
+  const messages = await db.getMessages();
+  const formattedMessages = messages.map((message) => {
+    return {
+      ...message,
+      date_added: format(message.date_added, "MM-dd-yyyy hh:mm a"),
+    };
+  });
+  res.render("index", { messages: formattedMessages });
 };
 
 export const getNewMessageForm = (req, res) => {
@@ -20,17 +17,7 @@ export const getNewMessageForm = (req, res) => {
 };
 
 export const postMessage = (req, res) => {
-  const newMessage = {
-    text: req.body.text,
-    user: req.body.user,
-    added: new Date(),
-  };
-
-  if (!req.body.text || !req.body.user) {
-    console.error("Please fill out all fields");
-  } else {
-    messages.push(newMessage);
-  }
-
+  const newMessage = [req.body.text, req.body.username, new Date()];
+  db.insertMessage(newMessage);
   res.redirect("/");
 };
